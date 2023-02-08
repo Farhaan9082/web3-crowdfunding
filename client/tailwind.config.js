@@ -5,7 +5,24 @@ module.exports = {
     "./components/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    container: {
+      center: true,
+      padding: {
+        DEFAULT: "1.3rem",
+        sm: "2rem",
+        md: "3rem",
+        lg: "4.5rem",
+        xl: "6rem",
+      },
+    },
+    extend: {
+      colors: {
+        background: "#13131a",
+      },
+      fontFamily: {
+        epilogue: ["var(--font-epilogue)"],
+      },
+    },
   },
   plugins: [],
 };
