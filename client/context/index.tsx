@@ -1,6 +1,6 @@
-import React, { useContext, createContext } from 'react';
+import { useContext, createContext } from "react";
 
-const StateContext = createContext({});
+const StateContext = createContext<any>({});
 
 export const StateContextProvider = ({ children }: any) => {
   return (
@@ -9,7 +9,7 @@ export const StateContextProvider = ({ children }: any) => {
     >
       {children}
     </StateContext.Provider>
-  )
-}
+  );
+};
 
 export const useStateContext = () => useContext(StateContext);

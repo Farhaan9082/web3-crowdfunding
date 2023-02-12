@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Logo from "@/assets/logo.svg";
 import Search from "@/assets/search.svg";
-import Button from "./Button";
+import CustomConnectButton from "./CustomConnectButton";
 
 const Navbar = () => {
   return (
@@ -28,7 +28,7 @@ const Navbar = () => {
             </div>
           </div>
         </div>
-        <Button title="Connect" bg="bg-[#8c6dfd]" />
+        <CustomConnectButton />
       </div>
       <div className="mt-8 lg:hidden">
         <div className="lg:flex-1 flex flex-row py-2 pl-4 pr-2 h-[52px] bg-[#1c1c24] rounded-[100px]">
