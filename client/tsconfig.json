@@ -18,7 +18,8 @@
     "paths": {
       "@/shared/*": ["components/shared/*"],
       "@/assets/*": ["public/*"],
-      "@/campaign/*": ["components/campaign/*"]
+      "@/campaign/*": ["components/campaign/*"],
+      "@/home/*": ["components/home/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],

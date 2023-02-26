@@ -5,8 +5,14 @@ import Money from "@/assets/money.svg";
 import Image from "next/image";
 import Button from "@/shared/Button";
 import { useState } from "react";
+import { ethers } from "ethers";
+import { checkIfImage } from "utils";
+import { useRouter } from "next/router";
+import { useStateContext } from "context";
 
 export default function CreateCampaign() {
+  const router = useRouter();
+  const { publishCampaign } = useStateContext();
   const [loading, setLoading] = useState(false);
   const [form, setForm] = useState({
     name: "",
@@ -23,7 +29,20 @@ export default function CreateCampaign() {
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
-    console.log(form);
+    checkIfImage(form.image, async (exists: boolean) => {
+      if (exists) {
+        setLoading(true);
+        await publishCampaign({
+          ...form,
+          target: ethers.utils.parseUnits(form.target, 18),
+        });
+        setLoading(false);
+        router.push("/");
+      } else {
+        alert("Provide valid image URL");
+        setForm({ ...form, image: "" });
+      }
+    });
   };
 
   return (
@@ -71,11 +90,9 @@ export default function CreateCampaign() {
               }}
             />
             <div className="w-full flex justify-start items-center p-4 bg-[#8c6dfd] h-[120px] rounded-[10px]">
-              <Image
-                src={Money}
-                alt="money"
-                className="w-[40px] h-[40px] object-contain"
-              />
+              <div className="w-[40px] h-[40px] pl-2">
+                <Image src={Money} alt="money" className="object-contain" />
+              </div>
               <h4 className="font-epilogue font-bold text-[25px] text-white ml-[20px]">
                 You will get 100% of the raised amount
               </h4>

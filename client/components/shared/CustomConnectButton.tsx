@@ -1,7 +1,9 @@
 import { ConnectButton } from "@rainbow-me/rainbowkit";
+import { useRouter } from "next/router";
 import Button from "./Button";
 
 function CustomConnectButton() {
+  const router = useRouter();
   return (
     <ConnectButton.Custom>
       {({
@@ -51,7 +53,7 @@ function CustomConnectButton() {
                 } else {
                   return (
                     <Button
-                      onClick={() => {}}
+                      onClick={() => router.push("/create-campaign")}
                       title="Create a campaign"
                       bg="bg-[#1dc071]"
                     />
