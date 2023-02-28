@@ -8,9 +8,15 @@ export const checkIfImage = (url: string, callback: any) => {
   img.onerror = () => callback(false);
 };
 
-export const daysLeft = (deadline: string) => {
+export const daysLeft = (deadline: number) => {
   const difference = new Date(deadline).getTime() - Date.now();
   const remainingDays = difference / (1000 * 3600 * 24);
 
   return remainingDays.toFixed(0);
+};
+
+export const calculateBarPercentage = (goal: number, raisedAmount: number) => {
+  const percentage = Math.round((raisedAmount * 100) / goal);
+
+  return percentage;
 };

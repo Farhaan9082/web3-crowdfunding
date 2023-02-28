@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Load from "@/assets/loader.svg";
 import FundCard from "./FundCard";
+import Link from "next/link";
 
 interface DisplayCampaignsProps {
   title: string;
@@ -37,7 +38,15 @@ const DisplayCampaigns = ({
         {!isLoading &&
           campaigns.length > 0 &&
           campaigns.map((campaign: any) => (
-            <FundCard key={campaign.pId} {...campaign} handleClick={() => {}} />
+            <Link
+              href={{
+                pathname: `/campaign-details/${campaign.title}`,
+                query: campaign,
+              }}
+              key={campaign.pId}
+            >
+              <FundCard {...campaign} />
+            </Link>
           ))}
       </div>
     </div>
