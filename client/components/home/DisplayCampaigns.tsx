@@ -20,7 +20,7 @@ const DisplayCampaigns = ({
         {title} ({campaigns.length})
       </h1>
 
-      <div className="flex flex-wrap mt-[20px] gap-[26px]">
+      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 mt-[20px] gap-[26px]">
         {isLoading && (
           <Image
             src={Load}

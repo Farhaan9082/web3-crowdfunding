@@ -76,8 +76,42 @@ export const StateContextProvider = ({ children }: any) => {
     return parsedCampaings;
   };
 
+  const donate = async (pId: number, amount: string) => {
+    const data = await contract?.donateToCampaign(pId, {
+      value: ethers.utils.parseEther(amount),
+    });
+    await data.wait();
+
+    return data;
+  };
+
+  const getDonations = async (pId: number) => {
+    const donations = await contract?.getDonators(pId);
+    const numberOfDonations = donations[0].length;
+
+    const parsedDonations = [];
+
+    for (let i = 0; i < numberOfDonations; i++) {
+      parsedDonations.push({
+        donator: donations[0][i],
+        donation: ethers.utils.formatEther(donations[1][i].toString()),
+      });
+    }
+
+    return parsedDonations;
+  };
+
   return (
-    <StateContext.Provider value={{ publishCampaign, getCampaigns, address }}>
+    <StateContext.Provider
+      value={{
+        address,
+        contract,
+        publishCampaign,
+        getCampaigns,
+        donate,
+        getDonations,
+      }}
+    >
       {children}
     </StateContext.Provider>
   );

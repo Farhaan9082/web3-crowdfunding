@@ -1,5 +1,5 @@
 import Loader from "@/campaign/Loader";
-import Campaign from "@/assets/campaign-icon.png";
+import User from "@/assets/user-icon.png";
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import { useRouter } from "next/router";
@@ -31,7 +31,7 @@ export default function CampaignDetails({}) {
   const remainingDays = daysLeft(Number(state.deadline));
 
   const fetchDonators = async () => {
-    const data = await getDonations(state.pId);
+    const data = await getDonations(Number(state.pId));
     setDonators(data);
   };
 
@@ -43,8 +43,8 @@ export default function CampaignDetails({}) {
   };
 
   useEffect(() => {
-    if (contract) fetchDonators();
-  }, [contract, address]);
+    if (contract && state.pId != undefined) fetchDonators();
+  }, [contract, address, state]);
 
   return (
     <div className="container py-8">
@@ -91,7 +91,7 @@ export default function CampaignDetails({}) {
             <div className="mt-[20px] flex flex-row items-center flex-wrap gap-[14px]">
               <div className="w-[52px] h-[52px] flex items-center justify-center rounded-full bg-[#2c2f32] cursor-pointer">
                 <Image
-                  src={Campaign}
+                  src={User}
                   alt="user"
                   className="w-[60%] h-[60%] object-contain"
                 />
@@ -124,17 +124,17 @@ export default function CampaignDetails({}) {
               Donators
             </h4>
 
-            <div className="mt-[20px] flex flex-col gap-4">
+            <div className="mt-[20px] flex flex-col gap-4 lg:max-w-lg">
               {donators.length > 0 ? (
                 donators.map((item: any, index: number) => (
                   <div
                     key={`${item.donator}-${index}`}
                     className="flex justify-between items-center gap-4"
                   >
-                    <p className="font-epilogue font-normal text-[16px] text-[#b2b3bd] leading-[26px] break-ll">
+                    <p className="font-epilogue font-normal text-[16px] text-[#b2b3bd] leading-[26px] truncate">
                       {index + 1}. {item.donator}
                     </p>
-                    <p className="font-epilogue font-normal text-[16px] text-[#808191] leading-[26px] break-ll">
+                    <p className="font-epilogue font-normal text-[16px] text-[#808191] leading-[26px]">
                       {item.donation}
                     </p>
                   </div>
