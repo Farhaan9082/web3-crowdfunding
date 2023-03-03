@@ -3,8 +3,11 @@ import Logo from "@/assets/logo.svg";
 import Search from "@/assets/search.svg";
 import CustomConnectButton from "./CustomConnectButton";
 import Link from "next/link";
+import { useStateContext } from "context";
 
 const Navbar = () => {
+  const { setSearchTerm } = useStateContext();
+
   return (
     <nav className="container py-8">
       <div className="flex justify-between items-center">
@@ -18,6 +21,7 @@ const Navbar = () => {
                 type="text"
                 placeholder="Search for campaigns"
                 className="flex w-full font-epilogue font-normal text-[14px] placeholder:text-[#4b5264] text-white bg-transparent outline-none"
+                onChange={(e) => setSearchTerm(e.target.value)}
               />
               <div className="w-[72px] h-full rounded-[20px] bg-[#4acd8d] flex justify-center items-center cursor-pointer">
                 <Image

@@ -2,6 +2,7 @@ import Image from "next/image";
 import Load from "@/assets/loader.svg";
 import FundCard from "./FundCard";
 import Link from "next/link";
+import { useStateContext } from "context";
 
 interface DisplayCampaignsProps {
   title: string;
@@ -14,6 +15,8 @@ const DisplayCampaigns = ({
   isLoading,
   campaigns,
 }: DisplayCampaignsProps) => {
+  const { searchTerm } = useStateContext();
+
   return (
     <div className="container py-8">
       <h1 className="font-epilogue font-semibold text-[18px] text-white text-left">
@@ -37,17 +40,27 @@ const DisplayCampaigns = ({
 
         {!isLoading &&
           campaigns.length > 0 &&
-          campaigns.map((campaign: any) => (
-            <Link
-              href={{
-                pathname: `/campaign-details/${campaign.title}`,
-                query: campaign,
-              }}
-              key={campaign.pId}
-            >
-              <FundCard {...campaign} />
-            </Link>
-          ))}
+          campaigns
+            .filter((campaign: any) => {
+              if (searchTerm == "") {
+                return campaign;
+              } else if (
+                campaign.title.toLowerCase().includes(searchTerm.toLowerCase())
+              ) {
+                return campaign;
+              }
+            })
+            .map((campaign: any) => (
+              <Link
+                href={{
+                  pathname: `/campaign-details/${campaign.title}`,
+                  query: campaign,
+                }}
+                key={campaign.pId}
+              >
+                <FundCard {...campaign} />
+              </Link>
+            ))}
       </div>
     </div>
   );

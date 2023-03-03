@@ -1,5 +1,5 @@
 import { ethers } from "ethers";
-import { useContext, createContext } from "react";
+import { useContext, createContext, useState } from "react";
 import { useAccount, useContract, useContractRead, useSigner } from "wagmi";
 import abi from "../abi/CrowdFunding.json";
 
@@ -29,6 +29,8 @@ const StateContext = createContext<any>({});
 export const StateContextProvider = ({ children }: any) => {
   const { address } = useAccount();
   const { data: signer } = useSigner();
+  const [searchTerm, setSearchTerm] = useState("");
+
   const contract = useContract({
     address: `0x${process.env.NEXT_PUBLIC_CONTRACT_ADDRESS}`,
     abi: abi.abi,
@@ -110,6 +112,8 @@ export const StateContextProvider = ({ children }: any) => {
         getCampaigns,
         donate,
         getDonations,
+        searchTerm,
+        setSearchTerm,
       }}
     >
       {children}
